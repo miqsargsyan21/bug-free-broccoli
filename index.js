@@ -1,4 +1,5 @@
-import { connect } from "./modules/mongoModule.js";
+import { connect } from "./Modules/mongoModule.js";
+import Routes from "./Routes/index.js";
 import bodyParser from "body-parser";
 import express from 'express';
 import dotenv from 'dotenv';
@@ -12,9 +13,7 @@ connect();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-})
+app.use('/api', Routes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

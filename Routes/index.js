@@ -1,4 +1,4 @@
-import BookRoutes from './BookRoutes';
+import BookRoutes from './BookRoutes.js';
 import Routes from 'express';
 
 const router = Routes();

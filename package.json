@@ -7,11 +7,14 @@
   "repository": "https://github.com/miqsargsyan21/bug-free-broccoli.git",
   "author": "Michael Sargsyan",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "dependencies": {
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^7.2.0"
+    "mongodb": "^5.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

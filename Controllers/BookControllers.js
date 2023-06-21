@@ -16,6 +16,24 @@ const getAllBooks = async (req, res) => {
   }
 };
 
+const getBookById = async (req, res) => {
+  const {bookId} = req.params;
+
+  try {
+    const response = await queryMethod('SELECT * FROM Books WHERE book_id = ?', [bookId]);
+
+    res.status(200).json({
+      success: true,
+      data: response[0],
+    });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
 const addBook = async (req, res) => {
   const {name, releaseDate, authorIds = []} = req.body;
 
@@ -42,4 +60,41 @@ const addBook = async (req, res) => {
   }
 };
 
-export { getAllBooks, addBook };
+const deleteBook = async (req, res) => {
+  const {bookId} = req.params;
+
+  try {
+    await queryMethod('DELETE FROM Books WHERE book_id = ?', [bookId]);
+
+    res.status(200).json({
+      success: true,
+      message: 'Book deleted successfully',
+    });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
+const updateBook = async (req, res) => {
+  const {bookId} = req.params;
+  const {name, releaseDate} = req.body;
+
+  try {
+    await queryMethod('UPDATE Books SET name = ?, release_date = ? WHERE book_id = ?', [name, releaseDate, bookId]);
+
+    res.status(200).json({
+      success: true,
+      message: 'Book updated successfully',
+    });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
+export { getAllBooks, addBook, deleteBook, getBookById, updateBook };

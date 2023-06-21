@@ -16,6 +16,24 @@ const getAllAuthors = async (req, res) => {
   }
 };
 
+const getAuthorById = async (req, res) => {
+  const {authorId} = req.params;
+
+  try {
+    const response = await queryMethod('SELECT * FROM Authors WHERE author_id = ?', [authorId]);
+
+    res.status(200).json({
+      success: true,
+      data: response[0],
+    });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
 const addAuthor = async (req, res) => {
   const {firstName, lastName, birthday} = req.body;
 
@@ -34,4 +52,41 @@ const addAuthor = async (req, res) => {
   }
 };
 
-export { getAllAuthors, addAuthor };
+const deleteAuthor = async (req, res) => {
+  const {authorId} = req.params;
+
+  try {
+    await queryMethod('DELETE FROM Authors WHERE author_id = ?', [authorId]);
+
+    res.status(200).json({
+      success: true,
+      message: 'Author deleted successfully',
+    });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
+const updateAuthor = async (req, res) => {
+  const {authorId} = req.params;
+  const {firstName, lastName, birthday} = req.body;
+
+  try {
+    await queryMethod('UPDATE Authors SET first_name = ?, last_name = ?, birthday = ? WHERE author_id = ?', [firstName, lastName, birthday, authorId]);
+
+    res.status(200).json({
+      success: true,
+      message: 'Author updated successfully',
+    });
+  } catch (e) {
+    res.status(500).json({
+      success: false,
+      message: e.message,
+    });
+  }
+};
+
+export { getAllAuthors, addAuthor, deleteAuthor, getAuthorById, updateAuthor };

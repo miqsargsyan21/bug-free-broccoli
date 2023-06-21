@@ -1,3 +1,4 @@
+import {dbInit, setupTables} from "./Modules/MysqlModule.js";
 import Routes from "./Routes/index.js";
 import bodyParser from "body-parser";
 import express from 'express';
@@ -12,6 +13,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', Routes);
+
+dbInit();
+setupTables();
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

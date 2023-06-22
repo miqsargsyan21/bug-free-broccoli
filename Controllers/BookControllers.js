@@ -97,4 +97,10 @@ const updateBook = async (req, res) => {
   }
 };
 
-export { getAllBooks, addBook, deleteBook, getBookById, updateBook };
+export {
+  getAllBooks,
+  getBookById,
+  deleteBook,
+  updateBook,
+  addBook
+};

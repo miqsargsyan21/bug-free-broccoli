@@ -41,6 +41,16 @@ const queryMethod = (query, params) => {
 
 const setupTables = async () => {
   try {
+    await queryMethod(`CREATE TABLE IF NOT EXISTS Users (
+      user_id INT PRIMARY KEY AUTO_INCREMENT,
+      first_name VARCHAR(255) NOT NULL,
+      last_name VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL UNIQUE,
+      password VARCHAR(255) NOT NULL,
+      birthday DATE NOT NULL,
+      is_admin BOOL DEFAULT FALSE
+    )`)
+
     await queryMethod(`CREATE TABLE IF NOT EXISTS Authors (
       author_id INT PRIMARY KEY AUTO_INCREMENT,
       first_name VARCHAR(255) NOT NULL,
@@ -51,7 +61,9 @@ const setupTables = async () => {
     await queryMethod(`CREATE TABLE IF NOT EXISTS Books (
       book_id INT PRIMARY KEY AUTO_INCREMENT,
       name VARCHAR(255) NOT NULL,
-      release_date DATE NOT NULL
+      release_date DATE NOT NULL,
+      user_id INT,
+      FOREIGN KEY (user_id) REFERENCES Users(user_id)
     )`);
 
     await queryMethod(`CREATE TABLE IF NOT EXISTS AuthorBookRelations (

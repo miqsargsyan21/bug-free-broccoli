@@ -89,4 +89,10 @@ const updateAuthor = async (req, res) => {
   }
 };
 
-export { getAllAuthors, addAuthor, deleteAuthor, getAuthorById, updateAuthor };
+export {
+  getAllAuthors,
+  getAuthorById,
+  updateAuthor,
+  deleteAuthor,
+  addAuthor
+};

@@ -17,7 +17,7 @@ const getAllAuthors = async (req, res) => {
 };
 
 const getAuthorById = async (req, res) => {
-  const {authorId} = req.params;
+  const { authorId } = req.params;
 
   try {
     const response = await queryMethod('SELECT * FROM Authors WHERE author_id = ?', [authorId]);
@@ -35,7 +35,7 @@ const getAuthorById = async (req, res) => {
 };
 
 const addAuthor = async (req, res) => {
-  const {firstName, lastName, birthday} = req.body;
+  const { firstName, lastName, birthday } = req.body;
 
   try {
     const response = await queryMethod('INSERT INTO Authors (first_name, last_name, birthday) VALUES (?, ?, ?)', [firstName, lastName, birthday]);
@@ -53,7 +53,7 @@ const addAuthor = async (req, res) => {
 };
 
 const deleteAuthor = async (req, res) => {
-  const {authorId} = req.params;
+  const { authorId } = req.params;
 
   try {
     await queryMethod('DELETE FROM Authors WHERE author_id = ?', [authorId]);
@@ -71,8 +71,8 @@ const deleteAuthor = async (req, res) => {
 };
 
 const updateAuthor = async (req, res) => {
-  const {authorId} = req.params;
-  const {firstName, lastName, birthday} = req.body;
+  const { authorId } = req.params;
+  const { firstName, lastName, birthday } = req.body;
 
   try {
     await queryMethod('UPDATE Authors SET first_name = ?, last_name = ?, birthday = ? WHERE author_id = ?', [firstName, lastName, birthday, authorId]);

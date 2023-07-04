@@ -17,7 +17,7 @@ const getAllUsers = async (req, res) => {
 }
 
 const getUserById = async (req, res) => {
-  const {userId} = req.params;
+  const { userId } = req.params;
 
   try {
     const response = await queryMethod('SELECT * FROM Users WHERE user_id = ?', [userId]);
@@ -35,7 +35,7 @@ const getUserById = async (req, res) => {
 }
 
 const addUser = async (req, res) => {
-  const {firstName, lastName, birthday, email, password} = req.body;
+  const { firstName, lastName, birthday, email, password } = req.body;
 
   try {
     const response = await queryMethod('INSERT INTO Users(first_name, last_name, birthday, email, password) VALUES (?, ?, ?, ?, ?)', [firstName, lastName, birthday, email, password]);
@@ -53,8 +53,8 @@ const addUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const {userId} = req.params;
-  const {firstName, lastName, birthday, email, password} = req.body;
+  const { userId } = req.params;
+  const { firstName, lastName, birthday, email, password } = req.body;
 
   try {
     const response = await queryMethod('UPDATE Users SET first_name = ?, last_name = ?, birthday = ?, email = ?, password = ? WHERE user_id = ?', [firstName, lastName, birthday, email, password, userId]);
@@ -72,7 +72,7 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-  const {userId} = req.params;
+  const { userId } = req.params;
 
   try {
     await queryMethod('DELETE FROM Users WHERE user_id = ?', [userId]);

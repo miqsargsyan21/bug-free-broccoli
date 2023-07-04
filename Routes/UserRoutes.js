@@ -9,10 +9,13 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get('/all', getAllUsers);
-router.get('/:userId', getUserById);
-router.post('/add', addUser);
-router.delete('/delete/:userId', deleteUser);
-router.put('/update/:userId', updateUser);
+router.route('/')
+  .get(getAllUsers)
+  .post(addUser);
+
+router.route('/:userId')
+  .get(getUserById)
+  .put(updateUser)
+  .delete(deleteUser);
 
 export default router;

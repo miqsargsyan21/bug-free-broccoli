@@ -9,10 +9,13 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get('/all', getAllBooks);
-router.get('/:bookId', getBookById);
-router.post('/add', addBook);
-router.delete('/delete/:bookId', deleteBook);
-router.put('/update/:bookId', updateBook);
+router.route("/")
+  .get(getAllBooks)
+  .post(addBook);
+
+router.route("/:bookId")
+  .get(getBookById)
+  .put(updateBook)
+  .delete(deleteBook);
 
 export default router;

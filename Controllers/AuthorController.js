@@ -17,10 +17,10 @@ const getAllAuthors = async (req, res) => {
 };
 
 const getAuthorById = async (req, res) => {
-  const { authorId } = req.params;
+  const { id } = req.params;
 
   try {
-    const response = await queryMethod('SELECT * FROM Authors WHERE author_id = ?', [authorId]);
+    const response = await queryMethod('SELECT * FROM Authors WHERE id = ?', [id]);
 
     res.status(200).json({
       success: true,
@@ -53,10 +53,10 @@ const addAuthor = async (req, res) => {
 };
 
 const deleteAuthor = async (req, res) => {
-  const { authorId } = req.params;
+  const { id } = req.params;
 
   try {
-    await queryMethod('DELETE FROM Authors WHERE author_id = ?', [authorId]);
+    await queryMethod('DELETE FROM Authors WHERE id = ?', [id]);
 
     res.status(200).json({
       success: true,
@@ -71,11 +71,11 @@ const deleteAuthor = async (req, res) => {
 };
 
 const updateAuthor = async (req, res) => {
-  const { authorId } = req.params;
+  const { id } = req.params;
   const { firstName, lastName, birthday } = req.body;
 
   try {
-    await queryMethod('UPDATE Authors SET first_name = ?, last_name = ?, birthday = ? WHERE author_id = ?', [firstName, lastName, birthday, authorId]);
+    await queryMethod('UPDATE Authors SET first_name = ?, last_name = ?, birthday = ? WHERE id = ?', [firstName, lastName, birthday, id]);
 
     res.status(200).json({
       success: true,

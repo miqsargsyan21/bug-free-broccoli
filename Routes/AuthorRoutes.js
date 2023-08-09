@@ -13,7 +13,7 @@ router.route('/')
   .get(getAllAuthors)
   .post(addAuthor);
 
-router.route('/:authorId')
+router.route('/:id')
   .get(getAuthorById)
   .put(updateAuthor)
   .delete(deleteAuthor);

@@ -17,10 +17,10 @@ const getAllBooks = async (req, res) => {
 };
 
 const getBookById = async (req, res) => {
-  const { bookId } = req.params;
+  const { id } = req.params;
 
   try {
-    const response = await queryMethod('SELECT * FROM Books WHERE book_id = ?', [bookId]);
+    const response = await queryMethod('SELECT * FROM Books WHERE id = ?', [id]);
 
     res.status(200).json({
       success: true,
@@ -61,10 +61,10 @@ const addBook = async (req, res) => {
 };
 
 const deleteBook = async (req, res) => {
-  const { bookId } = req.params;
+  const { id } = req.params;
 
   try {
-    await queryMethod('DELETE FROM Books WHERE book_id = ?', [bookId]);
+    await queryMethod('DELETE FROM Books WHERE id = ?', [id]);
 
     res.status(200).json({
       success: true,
@@ -79,11 +79,11 @@ const deleteBook = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
-  const { bookId } = req.params;
+  const { id } = req.params;
   const { name, releaseDate } = req.body;
 
   try {
-    await queryMethod('UPDATE Books SET name = ?, release_date = ? WHERE book_id = ?', [name, releaseDate, bookId]);
+    await queryMethod('UPDATE Books SET name = ?, release_date = ? WHERE id = ?', [name, releaseDate, id]);
 
     res.status(200).json({
       success: true,

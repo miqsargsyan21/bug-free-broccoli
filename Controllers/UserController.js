@@ -1,4 +1,4 @@
-import {queryMethod} from "../Modules/MysqlModule.js";
+import { queryMethod } from "../Modules/MysqlModule.js";
 
 const getAllUsers = async (req, res) => {
   try {
@@ -17,10 +17,10 @@ const getAllUsers = async (req, res) => {
 }
 
 const getUserById = async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.params;
 
   try {
-    const response = await queryMethod('SELECT * FROM Users WHERE user_id = ?', [userId]);
+    const response = await queryMethod('SELECT * FROM Users WHERE id = ?', [id]);
 
     res.status(200).json({
       success: true,
@@ -53,11 +53,11 @@ const addUser = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.params;
   const { firstName, lastName, birthday, email, password } = req.body;
 
   try {
-    const response = await queryMethod('UPDATE Users SET first_name = ?, last_name = ?, birthday = ?, email = ?, password = ? WHERE user_id = ?', [firstName, lastName, birthday, email, password, userId]);
+    const response = await queryMethod('UPDATE Users SET first_name = ?, last_name = ?, birthday = ?, email = ?, password = ? WHERE id = ?', [firstName, lastName, birthday, email, password, id]);
 
     res.status(200).json({
       success: true,
@@ -72,14 +72,14 @@ const updateUser = async (req, res) => {
 }
 
 const deleteUser = async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.params;
 
   try {
-    await queryMethod('DELETE FROM Users WHERE user_id = ?', [userId]);
+    await queryMethod('DELETE FROM Users WHERE id = ?', [id]);
 
     res.status(200).json({
       success: true,
-      message: `User with id ${userId} deleted`,
+      message: `User with id ${id} deleted`,
     });
   } catch (e) {
     res.status(500).json({

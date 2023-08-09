@@ -42,7 +42,7 @@ const queryMethod = (query, params) => {
 const setupTables = async () => {
   try {
     await queryMethod(`CREATE TABLE IF NOT EXISTS Users (
-      user_id INT PRIMARY KEY AUTO_INCREMENT,
+      id INT PRIMARY KEY AUTO_INCREMENT,
       first_name VARCHAR(255) NOT NULL,
       last_name VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL UNIQUE,
@@ -52,26 +52,26 @@ const setupTables = async () => {
     )`)
 
     await queryMethod(`CREATE TABLE IF NOT EXISTS Authors (
-      author_id INT PRIMARY KEY AUTO_INCREMENT,
+      id INT PRIMARY KEY AUTO_INCREMENT,
       first_name VARCHAR(255) NOT NULL,
       last_name VARCHAR(255) NOT NULL,
       birthday DATE NOT NULL
     )`);
 
     await queryMethod(`CREATE TABLE IF NOT EXISTS Books (
-      book_id INT PRIMARY KEY AUTO_INCREMENT,
+      id INT PRIMARY KEY AUTO_INCREMENT,
       name VARCHAR(255) NOT NULL,
       release_date DATE NOT NULL,
       user_id INT,
-      FOREIGN KEY (user_id) REFERENCES Users(user_id)
+      FOREIGN KEY (user_id) REFERENCES Users(id)
     )`);
 
     await queryMethod(`CREATE TABLE IF NOT EXISTS AuthorBookRelations (
-      author_book_relation_id INT PRIMARY KEY AUTO_INCREMENT,
+      id INT PRIMARY KEY AUTO_INCREMENT,
       book_id INT NOT NULL,
       author_id INT NOT NULL,
-      CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE,
-      CONSTRAINT fk_author_id FOREIGN KEY (author_id) REFERENCES Authors(author_id) ON DELETE CASCADE
+      CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES Books(id) ON DELETE CASCADE,
+      CONSTRAINT fk_author_id FOREIGN KEY (author_id) REFERENCES Authors(id) ON DELETE CASCADE
     )`);
   } catch (e) {
     console.log(`Error setting up tables: ${e}`);
